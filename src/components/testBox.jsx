@@ -7,8 +7,20 @@ const TestBox = () => {
     const [result, setResult] = useState('');
     const [warning, setWarning] = useState(false);
 
+    const handleStorage = (sentence, text) => {
+        const answers = {
+            original: sentence,
+            result: text,
+        };
+
+        const questionsAndAnswers = JSON.parse(sessionStorage.getItem('questionsAndAnswers')) || [];
+        questionsAndAnswers.push(answers);
+
+        sessionStorage.setItem('questionsAndAnswers', JSON.stringify(questionsAndAnswers));
+    };
+
     const handleCheck = async () => {
-        if (!sentence.trim()) {
+        if (!sentence) {
             setWarning('Please enter a sentence to check');
             return;
         }
@@ -27,6 +39,7 @@ const TestBox = () => {
             const text = JSON.parse(data.body).cleaned_sentence;
             setOriginal(sentence);
             setResult(text);
+            handleStorage(sentence, text);
             setSentence('');
         } catch (error) {
             console.error(error);
