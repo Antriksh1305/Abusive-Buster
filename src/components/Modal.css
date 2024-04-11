@@ -1,0 +1,25 @@
+.modal-dialog {
+    margin: 10% auto;
+}
+
+.modal-header .close:focus {
+    outline: none;
+}
+
+.submit-btn {
+    width: 100%;
+    background-color: #5292db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+.submit-btn:hover {
+    background-color: #3277c7;
+}
+
+@media screen and (max-width: 512px){
+    .modal-dialog {
+        width: 90vw;
+    }
+}

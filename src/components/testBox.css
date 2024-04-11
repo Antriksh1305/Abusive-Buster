@@ -1,0 +1,56 @@
+.test-box {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 0 20px 20px 0;
+    flex-grow: 1;
+}
+
+.test-box h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #f2f2f2;
+    font-weight: 600;
+}
+
+.test-box p {
+    font-size: 16px;
+    font-weight: 400;
+    color: #f2f2f2;
+}
+
+.test-box input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.test-box button {
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.test-box button:hover {
+    background-color: #5292db;
+    color: white;
+}
+
+.test-box button.btn.btn-primary {
+    background-color: #5292db;
+    border-color: #5292db;
+    color: #fff;
+}
+
+.test-box button.btn.btn-primary:hover {
+    background-color: #3277c7;
+    border-color: #3277c7;
+}
+
+@media screen and (max-width: 768px) {
+    .test-box {
+        margin: 0 0 20px 0;
+    }
+}
