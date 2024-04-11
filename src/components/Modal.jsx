@@ -9,9 +9,16 @@ const FeedbackModal = (props) => {
 
     const handleFeedbackSubmit = (e) => {
         e.preventDefault();
-        console.log(e.target.feedbackAnswer.value);
-        console.log(e.target.rating.value + ' stars');
-        // Handle feedback submission
+        const feedbackAnswer = e.target.feedbackAnswer.value;
+        const rating = e.target.rating.value || 0;
+        const currentDate = new Date().toLocaleString();
+
+        const feedback = {
+            feedbackAnswer,
+            rating,
+        };
+
+        sessionStorage.setItem(`${currentDate}`, JSON.stringify(feedback));
         setShowModal(false);
     };
 
