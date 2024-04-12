@@ -4,21 +4,20 @@ import "./Modal.css";
 // components
 import Rating from './rating';
 
+// functions
+import postFeedback from '../firebase/postFeedback';
+
 const FeedbackModal = (props) => {
     const { showModal, setShowModal } = props;
 
     const handleFeedbackSubmit = (e) => {
         e.preventDefault();
-        const feedbackAnswer = e.target.feedbackAnswer.value;
+        // const timestamp = new Date().toLocaleString();
         const rating = e.target.rating.value || 0;
-        const currentDate = new Date().toLocaleString();
+        const feedbackAnswer = e.target.feedbackAnswer.value;
 
-        const feedback = {
-            feedbackAnswer,
-            rating,
-        };
+        postFeedback(rating, feedbackAnswer);
 
-        sessionStorage.setItem(`${currentDate}`, JSON.stringify(feedback));
         setShowModal(false);
     };
 

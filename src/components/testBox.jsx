@@ -1,5 +1,8 @@
 import { useState } from 'react';
-import './testBox.css'; // Import your custom CSS file
+import './testBox.css';
+
+// functions
+import postAbusiveData from '../firebase/postAbusiveData';
 
 const TestBox = () => {
     const [sentence, setSentence] = useState('');
@@ -7,17 +10,8 @@ const TestBox = () => {
     const [result, setResult] = useState('');
     const [warning, setWarning] = useState(false);
 
-    const handleStorage = (sentence, text) => {
-        const answers = {
-            original: sentence,
-            result: text,
-        };
-
-        const questionsAndAnswers = JSON.parse(sessionStorage.getItem('questionsAndAnswers')) || [];
-        questionsAndAnswers.push(answers);
-
-        sessionStorage.setItem('questionsAndAnswers', JSON.stringify(questionsAndAnswers));
-    };
+    // MODEL API URL
+    const MODEL_API_URL = import.meta.env.VITE_MODEL_API_URL;
 
     const handleCheck = async () => {
         if (!sentence) {
@@ -25,7 +19,7 @@ const TestBox = () => {
             return;
         }
         try {
-            const response = await fetch('https://6aw5czotni.execute-api.ap-south-1.amazonaws.com/censor', {
+            const response = await fetch(MODEL_API_URL, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -39,7 +33,7 @@ const TestBox = () => {
             const text = JSON.parse(data.body).cleaned_sentence;
             setOriginal(sentence);
             setResult(text);
-            handleStorage(sentence, text);
+            postAbusiveData(sentence, text);
             setSentence('');
         } catch (error) {
             console.error(error);
@@ -64,8 +58,14 @@ const TestBox = () => {
                 }}
             />
             {warning && <p className='warning' style={{ color: 'red', fontSize: '14px' }}>{warning}</p>}
-            {result && <p className='response'>The original sentence is: {original}</p>}
-            {result && <p className='response'>The cleaned sentence is: {result}</p>}
+            {
+                result && (
+                    <div className="result-display">
+                        <p className="response">The original sentence is: {original}</p>
+                        <p className="response">The cleaned sentence is: {result}</p>
+                    </div>
+                )
+            }
             <button className='btn btn-primary' onClick={handleCheck}>Check</button>
         </div>
     );
